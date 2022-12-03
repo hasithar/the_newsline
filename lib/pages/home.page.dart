@@ -3,6 +3,7 @@ import 'package:the_newsline/helpers/news.helper.dart';
 import 'package:the_newsline/helpers/news_category.helper.dart';
 import 'package:the_newsline/models/news_category.model.dart';
 import 'package:the_newsline/models/news.model.dart';
+import 'package:the_newsline/pages/news_single.page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -69,6 +70,7 @@ class _HomeState extends State<Home> {
                     newsTitle: newsArticles[i].newsTitle,
                     newsExcerpt: newsArticles[i].newsExcerpt,
                     newsImageUrl: newsArticles[i].newsImageUrl,
+                    newsUrl: newsArticles[i].newsUrl,
                   );
                 },
               ),
@@ -108,23 +110,32 @@ class NewsCard extends StatelessWidget {
   final String? newsTitle;
   final String? newsExcerpt;
   final String? newsImageUrl;
+  final String? newsUrl;
 
   const NewsCard({
     Key? key, 
     this.newsTitle, 
     this.newsExcerpt, 
-    this.newsImageUrl
+    this.newsImageUrl,
+    this.newsUrl,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          newsImageUrl != null ? Image.network(newsImageUrl!) : Text("no image"),
-          Text(newsTitle!),
-          newsExcerpt != null ? Text(newsExcerpt!) : Text("no description")
-        ],
+    return GestureDetector(
+      onTap: () => {
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => NewsSingle(newsUrl: newsUrl!)
+        )),
+      },
+      child: Container(
+        child: Column(
+          children: [
+            newsImageUrl != null ? Image.network(newsImageUrl!) : Text("no image"),
+            Text(newsTitle!),
+            newsExcerpt != null ? Text(newsExcerpt!) : Text("no description")
+          ],
+        ),
       ),
     );
   }
