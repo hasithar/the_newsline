@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:the_newsline/helpers/news.helper.dart';
 import 'package:the_newsline/helpers/news_category.helper.dart';
 import 'package:the_newsline/models/news_category.model.dart';
+import 'package:the_newsline/models/news.model.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,12 +13,24 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<NewsCategoryModel> newsCategories = <NewsCategoryModel>[];
+  List<NewsModel> newsArticles = <NewsModel>[];
+  bool isNewsFetching = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     newsCategories = getNewsCategories();
+    getNewsArticles();
+  }
+
+  getNewsArticles() async {
+    News news = News();
+    await news.getNews();
+    newsArticles = news.news;
+    setState(() {
+      isNewsFetching = false;
+    });
   }
 
   @override
@@ -26,7 +40,7 @@ class _HomeState extends State<Home> {
         title: const Text("The NewsLine"),
         centerTitle: true,
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -41,7 +55,24 @@ class _HomeState extends State<Home> {
                   categoryThumbUrl: newsCategories[i].categoryThumbUrl,
                 );
               }),
-            )
+            ),
+
+            isNewsFetching ?
+              const CircularProgressIndicator() :
+              Container(
+              child: ListView.builder(
+                itemCount: newsArticles.length,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (context, i) {
+                  return NewsCard(
+                    newsTitle: newsArticles[i].newsTitle,
+                    newsExcerpt: newsArticles[i].newsExcerpt,
+                    newsImageUrl: newsArticles[i].newsImageUrl,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -67,6 +98,32 @@ class NewsCategoryCard extends StatelessWidget {
         children: [
           Image.network(categoryThumbUrl!, width: 100, height: 100,),
           Text(categoryName!)
+        ],
+      ),
+    );
+  }
+}
+
+class NewsCard extends StatelessWidget {
+  final String? newsTitle;
+  final String? newsExcerpt;
+  final String? newsImageUrl;
+
+  const NewsCard({
+    Key? key, 
+    this.newsTitle, 
+    this.newsExcerpt, 
+    this.newsImageUrl
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          newsImageUrl != null ? Image.network(newsImageUrl!) : Text("no image"),
+          Text(newsTitle!),
+          newsExcerpt != null ? Text(newsExcerpt!) : Text("no description")
         ],
       ),
     );
