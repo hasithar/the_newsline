@@ -5,47 +5,37 @@ List<NewsCategoryModel> getNewsCategories() {
 
   NewsCategoryModel model = NewsCategoryModel();
   model.categoryName = "Business";
-  model.categoryThumbUrl = "https://images.unsplash.com/photo-1670067974780-79d187bf7246?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+  model.categorySlug="business";
+  category.add(model);
+
+  model = NewsCategoryModel();
+  model.categoryName = "Entertainment";
+  model.categorySlug = "entertainment";
+  category.add(model);
+
+  model = NewsCategoryModel();
+  model.categoryName = "General";
+  model.categorySlug= "general";
+  category.add(model);
+
+  model = NewsCategoryModel();
+  model.categoryName = "Health";
+  model.categorySlug = "health";
+  category.add(model);
+
+  model = NewsCategoryModel();
+  model.categoryName = "Science";
+  model.categorySlug = "science";
   category.add(model);
 
   model = NewsCategoryModel();
   model.categoryName = "Sports";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
+  model.categorySlug = "sports";
   category.add(model);
 
   model = NewsCategoryModel();
-  model.categoryName = "Fashion";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Sports";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Fashion";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Sports";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Fashion";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Sports";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
-  category.add(model);
-
-  model = NewsCategoryModel();
-  model.categoryName = "Fashion";
-  model.categoryThumbUrl = "https://source.unsplash.com/random";
+  model.categoryName = "Technology";
+  model.categorySlug = "technology";
   category.add(model);
 
   return category;

@@ -37,6 +37,14 @@ class NewsTopStoryCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black45,
                 borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.2),
+                    offset: Offset(8, 8),
+                    blurRadius: 8,
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
               child: Text(newsTitle!, style: const TextStyle(
                 color: Colors.white,

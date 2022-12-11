@@ -32,7 +32,8 @@ class _HomeState extends State<Home> {
 
   getTopStories() async {
     News topStories = News(
-      apiPath: "top-headlines"
+      apiPath: "top-headlines",
+      category: ""
     );
     await topStories.getNews();
     newsArticlesTopStories = topStories.news;
@@ -68,7 +69,7 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, i) {
                 return NewsCategoryCard(
                   categoryName: newsCategories[i].categoryName,
-                  categoryThumbUrl: newsCategories[i].categoryThumbUrl,
+                  categorySlug: newsCategories[i].categorySlug,
                 );
               }),
             ),
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> {
             isTopStoriesFetching ?
             const CircularProgressIndicator() :
             Container(
-              height: 200,
+              height: 300,
               child: ListView.builder(
                 itemCount: newsArticlesTopStories.length,
                 shrinkWrap: true,
