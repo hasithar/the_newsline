@@ -38,8 +38,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("The NewsLine"),
-        centerTitle: true,
+        title: const Text("The NewsLine")
       ),
       body: SingleChildScrollView(
         child: Column(

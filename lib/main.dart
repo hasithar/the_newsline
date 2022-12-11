@@ -7,6 +7,13 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primarySwatch: Colors.blue,
+      appBarTheme: const AppBarTheme(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black54,
+        elevation: 0,
+        toolbarHeight: 80
+      )
     ),
     home: const Home(),
   ));
