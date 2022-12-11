@@ -1,12 +1,23 @@
 import 'package:the_newsline/models/news.model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:the_newsline/constants/api.constanst.dart' as api_constants;
 
 class News {
+  final String? apiPath;
+  final String apiHost = api_constants.host;
+  final String apiVersion = api_constants.version;
+  final String apiKey = api_constants.apiKey;
+  static const String language = "en";
+
   List<NewsModel> news = [];
 
+  News({
+    this.apiPath,
+  }) ;
+
   Future<void> getNews() async {
-    String newsUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=511b2947536d4aa087a6621cccd61f68";
+    String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&apiKey=$apiKey";
 
     var res  = await http.get(Uri.parse(newsUrl));
     var data = jsonDecode(res.body);
@@ -27,7 +38,4 @@ class News {
       });
     }
   }
-
-
-
 }
