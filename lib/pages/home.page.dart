@@ -16,9 +16,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<NewsCategoryModel> newsCategories = <NewsCategoryModel>[];
-  // List<NewsModel> newsArticles = <NewsModel>[];
+  List<NewsModel> newsArticles = <NewsModel>[];
   List<NewsModel> newsArticlesTopStories = <NewsModel>[];
-  // bool isNewsFetching = true;
+  bool isNewsFetching = true;
   bool isTopStoriesFetching = true;
 
   @override
@@ -27,13 +27,14 @@ class _HomeState extends State<Home> {
     super.initState();
     newsCategories = getNewsCategories();
     getTopStories();
-    // getNewsArticles();
+    getNewsArticles();
   }
 
   getTopStories() async {
     News topStories = News(
       apiPath: "top-headlines",
-      category: ""
+      category: "",
+      pageSize: 5
     );
     await topStories.getNews();
     newsArticlesTopStories = topStories.news;
@@ -42,14 +43,18 @@ class _HomeState extends State<Home> {
     });
   }
 
-  // getNewsArticles() async {
-  //   News news = News();
-  //   await news.getNews();
-  //   newsArticles = news.news;
-  //   setState(() {
-  //     isNewsFetching = false;
-  //   });
-  // }
+  getNewsArticles() async {
+    News news = News(
+      apiPath: "top-headlines",
+      category: ""
+    );
+    await news.getNews();
+    newsArticles = news.news;
+    newsArticles.removeRange(0, 5);
+    setState(() {
+      isNewsFetching = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +86,9 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text("Top Stories", style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromRGBO(0, 21, 69, 1)
                     )),
                   ),
                 ],
@@ -90,9 +96,15 @@ class _HomeState extends State<Home> {
             ),
 
             isTopStoriesFetching ?
-            const CircularProgressIndicator() :
             Container(
-              height: 300,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 94),
+              child: const CircularProgressIndicator(
+                color: Colors.redAccent,
+                backgroundColor: Color.fromRGBO(0, 21, 69, 1),
+              ),
+            ) :
+            SizedBox(
+              height: 224,
               child: ListView.builder(
                 itemCount: newsArticlesTopStories.length,
                 shrinkWrap: true,
@@ -108,23 +120,62 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            // isTopStoriesFetching ?
-            //   const CircularProgressIndicator() :
-            //   Container(
-            //   child: ListView.builder(
-            //     itemCount: newsArticlesTopStories.length,
-            //     shrinkWrap: true,
-            //     physics: ClampingScrollPhysics(),
-            //     itemBuilder: (context, i) {
-            //       return NewsCard(
-            //         newsTitle: newsArticlesTopStories[i].newsTitle,
-            //         newsExcerpt: newsArticlesTopStories[i].newsExcerpt,
-            //         newsImageUrl: newsArticlesTopStories[i].newsImageUrl,
-            //         newsUrl: newsArticlesTopStories[i].newsUrl,
-            //       );
-            //     },
-            //   ),
-            // ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Latest News", style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromRGBO(0, 21, 69, 1)
+                    )),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 64,
+              child: ListView.builder(
+                  itemCount: newsCategories.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, i) {
+                    return NewsCategoryCard(
+                      categoryName: newsCategories[i].categoryName,
+                      categorySlug: newsCategories[i].categorySlug,
+                    );
+                  }),
+            ),
+
+            isNewsFetching ?
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 94),
+                child: const CircularProgressIndicator(
+                  color: Colors.redAccent,
+                  backgroundColor: Color.fromRGBO(0, 21, 69, 1),
+                ),
+              ) :
+              Container(
+                margin: const EdgeInsets.only(bottom: 32),
+                child: ListView.builder(
+                  itemCount: newsArticles.length,
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (context, i) {
+                    return NewsCard(
+                        newsTitle: newsArticles[i].newsTitle,
+                        newsExcerpt: newsArticles[i].newsExcerpt,
+                        newsImageUrl: newsArticles[i].newsImageUrl,
+                        newsUrl: newsArticles[i].newsUrl,
+                        newsSource: newsArticles[i].newsSource,
+                        newsPublishedAt: newsArticles[i].newsPublishedAt
+                    );
+                  },
+                ),
+              ),
           ],
         ),
       ),
