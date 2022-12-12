@@ -110,10 +110,10 @@ class _NewsCategoryState extends State<NewsCategory> {
 
             isTopStoriesFetching ?
             Container(
-              height: 224,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 94),
               child: const CircularProgressIndicator(
-                backgroundColor: Colors.redAccent,
+                color: Colors.redAccent,
+                backgroundColor: Color.fromRGBO(0, 21, 69, 1),
               ),
             ) :
             SizedBox(
@@ -150,7 +150,13 @@ class _NewsCategoryState extends State<NewsCategory> {
             ),
 
             isNewsFetching ?
-              const CircularProgressIndicator() :
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 94),
+                child: const CircularProgressIndicator(
+                  color: Colors.redAccent,
+                  backgroundColor: Color.fromRGBO(0, 21, 69, 1),
+                ),
+              ) :
               Container(
                 margin: const EdgeInsets.only(bottom: 32),
                 child: ListView.builder(
