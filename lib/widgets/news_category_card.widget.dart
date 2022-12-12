@@ -41,7 +41,7 @@ class NewsCategoryCard extends StatelessWidget {
                     spreadRadius: 0,
                   ),
                 ],
-                color: (isActive ?? false) ? Colors.redAccent :  Color.fromRGBO(238, 238, 238, 1),
+                color: (isActive ?? false) ? Colors.redAccent :  const Color.fromRGBO(238, 238, 238, 1),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(categoryName!, style: TextStyle(

@@ -6,6 +6,7 @@ class NewsModel {
   late final String? newsUrl;
   late final String? newsImageUrl;
   late final String? newsPublishedAt;
+  late final String? newsSource;
 
   NewsModel({
     this.newsAuthor,
@@ -14,6 +15,7 @@ class NewsModel {
     this.newsDescription,
     this.newsUrl,
     this.newsImageUrl,
-    this.newsPublishedAt
+    this.newsPublishedAt,
+    this.newsSource
   });
 }

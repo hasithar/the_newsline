@@ -43,7 +43,8 @@ class _NewsCategoryState extends State<NewsCategory> {
   getTopStories() async {
     News topStories = News(
         apiPath: "top-headlines",
-        category: categorySlug
+        category: categorySlug,
+        pageSize: 5
     );
     await topStories.getNews();
     newsArticlesTopStories = topStories.news;
@@ -59,6 +60,7 @@ class _NewsCategoryState extends State<NewsCategory> {
     );
     await news.getNews();
     newsArticles = news.news;
+    newsArticles.removeRange(0, 5);
     setState(() {
       isNewsFetching = false;
     });
@@ -68,12 +70,14 @@ class _NewsCategoryState extends State<NewsCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryName!),
+        title: Text("${categoryName.toUpperCase()} NEWS", style: const TextStyle(
+          fontWeight: FontWeight.w700
+        ),),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 64,
               child: ListView.builder(
                   itemCount: newsCategories.length,
@@ -96,7 +100,8 @@ class _NewsCategoryState extends State<NewsCategory> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text("Top $categoryName Stories", style: const TextStyle(
                         fontSize: 24,
-                        fontWeight: FontWeight.w900
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromRGBO(0, 21, 69, 1)
                     )),
                   ),
                 ],
@@ -104,9 +109,15 @@ class _NewsCategoryState extends State<NewsCategory> {
             ),
 
             isTopStoriesFetching ?
-            const CircularProgressIndicator() :
             Container(
-              height: 256,
+              height: 224,
+              padding: const EdgeInsets.all(16),
+              child: const CircularProgressIndicator(
+                backgroundColor: Colors.redAccent,
+              ),
+            ) :
+            SizedBox(
+              height: 224,
               child: ListView.builder(
                 itemCount: newsArticlesTopStories.length,
                 shrinkWrap: true,
@@ -122,22 +133,39 @@ class _NewsCategoryState extends State<NewsCategory> {
               ),
             ),
 
-
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("Latest $categoryName News", style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromRGBO(0, 21, 69, 1)
+                    )),
+                  ),
+                ],
+              ),
+            ),
 
             isNewsFetching ?
               const CircularProgressIndicator() :
               Container(
-              child: ListView.builder(
-                itemCount: newsArticles.length,
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, i) {
-                  return NewsCard(
-                    newsTitle: newsArticles[i].newsTitle,
-                    newsExcerpt: newsArticles[i].newsExcerpt,
-                    newsImageUrl: newsArticles[i].newsImageUrl,
-                    newsUrl: newsArticles[i].newsUrl,
-                  );
+                margin: const EdgeInsets.only(bottom: 32),
+                child: ListView.builder(
+                  itemCount: newsArticles.length,
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (context, i) {
+                    return NewsCard(
+                      newsTitle: newsArticles[i].newsTitle,
+                      newsExcerpt: newsArticles[i].newsExcerpt,
+                      newsImageUrl: newsArticles[i].newsImageUrl,
+                      newsUrl: newsArticles[i].newsUrl,
+                      newsSource: newsArticles[i].newsSource,
+                      newsPublishedAt: newsArticles[i].newsPublishedAt
+                    );
                 },
               ),
             ),

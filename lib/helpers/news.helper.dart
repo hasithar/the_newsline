@@ -9,18 +9,20 @@ class News {
   final String apiKey = api_constants.apiKey;
   final String? apiPath;
   String? category;
+  int? pageSize;
   static const String language = "en";
 
   List<NewsModel> news = [];
 
   News({
     this.apiPath,
-    this.category
+    this.category,
+    this.pageSize
   }) ;
 
   Future<void> getNews() async {
     // String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&apiKey=$apiKey";
-    String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&category=$category&apiKey=$apiKey";
+    String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&category=$category&pageSize=$pageSize&apiKey=$apiKey";
 
     var res  = await http.get(Uri.parse(newsUrl));
     var data = jsonDecode(res.body);
@@ -34,7 +36,8 @@ class News {
             newsDescription: article['content'],
             newsUrl: article['url'],
             newsImageUrl: article['urlToImage'],
-            newsPublishedAt: article['publishedAt']
+            newsPublishedAt: article['publishedAt'],
+            newsSource: article['source']['name']
         );
 
         news.add(model);

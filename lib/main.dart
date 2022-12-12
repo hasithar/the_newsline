@@ -7,13 +7,14 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primarySwatch: Colors.blue,
+      fontFamily: 'Lato',
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black54,
+        foregroundColor: Color.fromRGBO(0, 21, 69, 1),
         elevation: 0,
         toolbarHeight: 80
-      )
+      ),
     ),
     home: const Home(),
   ));
