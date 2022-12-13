@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_newsline/pages/home.page.dart';
+import 'package:the_newsline/pages/search.page.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,7 +17,11 @@ void main() {
         toolbarHeight: 80
       ),
     ),
-    home: const Home(),
+    routes: {
+      '/': (context) => const Home(),
+      '/search': (context) => const Search()
+    },
+    initialRoute: '/',
   ));
 }
 

@@ -6,6 +6,7 @@ import 'package:the_newsline/models/news.model.dart';
 import 'package:the_newsline/widgets/news_card.widget.dart';
 import 'package:the_newsline/widgets/news_category_card.widget.dart';
 import 'package:the_newsline/widgets/news_top_story_card.widget.dart';
+import 'package:the_newsline/widgets/bottom_navigation.widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -179,6 +180,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      bottomNavigationBar: const BottomNavigation()
     );
   }
 }

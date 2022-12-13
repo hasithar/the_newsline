@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:the_newsline/widgets/bottom_navigation.widget.dart';
 
 class NewsSingle extends StatefulWidget {
   final String newsUrl;
@@ -30,6 +30,7 @@ class _NewsSingleState extends State<NewsSingle> {
           },
         ),
       ),
+      bottomNavigationBar: const BottomNavigation()
     );
   }
 }
