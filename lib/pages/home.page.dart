@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("The NewsLine"),
+        title:  Image.asset('assets/images/logo_default.png', width: 225,),
       ),
       body: SingleChildScrollView(
         child: Column(
