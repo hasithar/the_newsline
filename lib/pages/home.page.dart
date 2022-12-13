@@ -7,6 +7,7 @@ import 'package:the_newsline/widgets/news_card.widget.dart';
 import 'package:the_newsline/widgets/news_category_card.widget.dart';
 import 'package:the_newsline/widgets/news_top_story_card.widget.dart';
 import 'package:the_newsline/widgets/bottom_navigation.widget.dart';
+import 'package:the_newsline/widgets/nav_drawer.widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -179,6 +180,9 @@ class _HomeState extends State<Home> {
               ),
           ],
         ),
+      ),
+      drawer: NavDrawer(
+        newsCategories: newsCategories,
       ),
       bottomNavigationBar: const BottomNavigation()
     );
