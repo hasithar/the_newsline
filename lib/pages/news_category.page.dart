@@ -45,6 +45,7 @@ class _NewsCategoryState extends State<NewsCategory> {
     News topStories = News(
         apiPath: "top-headlines",
         category: categorySlug,
+        source: "",
         pageSize: 5
     );
     await topStories.getNews();
@@ -56,8 +57,9 @@ class _NewsCategoryState extends State<NewsCategory> {
 
   getNewsArticles() async {
     News news = News(
-        apiPath: "top-headlines",
-        category: categorySlug
+      apiPath: "top-headlines",
+      category: categorySlug,
+      source: "",
     );
     await news.getNews();
     newsArticles = news.news;

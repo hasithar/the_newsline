@@ -10,6 +10,7 @@ class News {
   final String? apiPath;
   String? category;
   int? pageSize;
+  String? source;
   static const String language = "en";
 
   List<NewsModel> news = [];
@@ -17,12 +18,18 @@ class News {
   News({
     this.apiPath,
     this.category,
-    this.pageSize
+    this.pageSize,
+    this.source,
   }) ;
 
   Future<void> getNews() async {
-    // String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&apiKey=$apiKey";
-    String newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&category=$category&pageSize=$pageSize&apiKey=$apiKey";
+    String newsUrl = "";
+
+    if(source!.isNotEmpty) {
+      newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&sources=$source&pageSize=$pageSize&apiKey=$apiKey";
+    } else {
+      newsUrl = "$apiHost/$apiVersion/$apiPath?language=$language&category=$category&pageSize=$pageSize&apiKey=$apiKey";
+    }
 
     var res  = await http.get(Uri.parse(newsUrl));
     var data = jsonDecode(res.body);

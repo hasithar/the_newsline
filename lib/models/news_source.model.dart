@@ -1,9 +1,5 @@
-class NewsCategoryModel {
-  late final String? categoryName;
-  late final String? categoryThumbUrl;
-
-// NewsCategoryModel({
-//   this.categoryName,
-//   this.categoryThumbUrl
-// });
+class NewsSourceModel {
+  late final String? sourceName;
+  late final String? sourceSlug;
+  late final String? sourceLogo;
 }

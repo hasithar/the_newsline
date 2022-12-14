@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:the_newsline/helpers/news.helper.dart';
 import 'package:the_newsline/helpers/news_category.helper.dart';
+import 'package:the_newsline/helpers/news_source.helper.dart';
 import 'package:the_newsline/models/news_category.model.dart';
 import 'package:the_newsline/models/news.model.dart';
+import 'package:the_newsline/models/news_source.model.dart';
 import 'package:the_newsline/widgets/news_card.widget.dart';
 import 'package:the_newsline/widgets/news_category_card.widget.dart';
+import 'package:the_newsline/widgets/news_source_card.widget.dart';
 import 'package:the_newsline/widgets/news_top_story_card.widget.dart';
 import 'package:the_newsline/widgets/bottom_navigation.widget.dart';
 import 'package:the_newsline/widgets/nav_drawer.widget.dart';
@@ -18,6 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<NewsCategoryModel> newsCategories = <NewsCategoryModel>[];
+  List<NewsSourceModel> newsSources = <NewsSourceModel>[];
   List<NewsModel> newsArticles = <NewsModel>[];
   List<NewsModel> newsArticlesTopStories = <NewsModel>[];
   bool isNewsFetching = true;
@@ -28,6 +32,7 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     newsCategories = getNewsCategories();
+    newsSources = getNewsSources();
     getTopStories();
     getNewsArticles();
   }
@@ -36,6 +41,7 @@ class _HomeState extends State<Home> {
     News topStories = News(
       apiPath: "top-headlines",
       category: "",
+      source: "",
       pageSize: 5
     );
     await topStories.getNews();
@@ -48,7 +54,8 @@ class _HomeState extends State<Home> {
   getNewsArticles() async {
     News news = News(
       apiPath: "top-headlines",
-      category: ""
+      category: "",
+      source: ""
     );
     await news.getNews();
     newsArticles = news.news;
@@ -70,13 +77,14 @@ class _HomeState extends State<Home> {
             Container(
               height: 100,
               child: ListView.builder(
-                  itemCount: newsCategories.length,
+                  itemCount: newsSources.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, i) {
-                return NewsCategoryCard(
-                  categoryName: newsCategories[i].categoryName,
-                  categorySlug: newsCategories[i].categorySlug,
+                return NewsSourceCard(
+                  sourceName: newsSources[i].sourceName,
+                  sourceSlug: newsSources[i].sourceSlug,
+                  sourceLogo: newsSources[i].sourceLogo,
                 );
               }),
             ),
