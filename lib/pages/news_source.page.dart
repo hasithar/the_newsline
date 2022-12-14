@@ -81,8 +81,11 @@ class _NewsSourceState extends State<NewsSource> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
-                height: 64,
+                height: 85,
                 child: ListView.builder(
                     itemCount: newsSources.length,
                     shrinkWrap: true,
@@ -92,7 +95,7 @@ class _NewsSourceState extends State<NewsSource> {
                         sourceName: newsSources[i].sourceName,
                         sourceSlug: newsSources[i].sourceSlug,
                         sourceLogo: newsSources[i].sourceLogo,
-                        isActive: newsSources[i].sourceSlug == newsSources ? true : false,
+                        isActive: newsSources[i].sourceSlug == sourceSlug ? true : false,
                       );
                     }),
               ),

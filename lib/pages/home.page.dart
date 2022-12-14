@@ -75,6 +75,22 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Container(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Top Sources", style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromRGBO(0, 21, 69, 1)
+                    )),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
               height: 100,
               child: ListView.builder(
                   itemCount: newsSources.length,
