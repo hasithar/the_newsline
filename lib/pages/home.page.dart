@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
             ),
 
             Container(
-              height: 100,
+              height: 110,
               child: ListView.builder(
                   itemCount: newsSources.length,
                   shrinkWrap: true,
