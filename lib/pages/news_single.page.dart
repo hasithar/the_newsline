@@ -18,17 +18,20 @@ class _NewsSingleState extends State<NewsSingle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('title'),
-        centerTitle: true,
-      ),
-      body: Container(
-        child: WebView(
-          initialUrl: widget.newsUrl,
-          onWebViewCreated: (WebViewController webViewController) => {
-            _completer.complete(webViewController)
-          },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          title: const Text('Back'),
+          centerTitle: false,
+          backgroundColor: const Color.fromRGBO(0, 21, 69, 1),
+          foregroundColor: Colors.white,
         ),
+      ),
+      body: WebView(
+        initialUrl: widget.newsUrl,
+        onWebViewCreated: (WebViewController webViewController) => {
+          _completer.complete(webViewController)
+        },
       ),
       bottomNavigationBar: const BottomNavigation()
     );

@@ -35,7 +35,7 @@ class NewsSourceCard extends StatelessWidget {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(64),
-                    child: Image.network(sourceLogo!, width: 64, height: 64, fit: BoxFit.cover,)
+                    child: Image.asset('assets/images/source_logos/$sourceLogo', width: 64, height: 64, fit: BoxFit.cover,)
                 ),
                 Container(
                   height: 64,
